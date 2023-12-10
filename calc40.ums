@@ -1,0 +1,130 @@
+.section init
+        .zero r0
+        .temps r6, r7
+
+.section rodata 
+        jumptable:
+                .space 256 // allocate space for 256 ASCII chars 
+
+        jump_init:
+                push r3 on stack r2
+                push r4 on stack r2
+        
+                r4 := jumptable
+                r3 := jumptable + 255
+
+                //output r4
+                //output r3 
+
+                goto jump_loop
+        
+        jump_loop:
+                m[r0][r4] := input_error
+                r4 := r4 + 1 
+
+                if (r4 <=s r3) goto jump_loop using r5
+
+
+                pop r4 off stack r2
+                pop r3 off stack r2
+                
+                m[r0][jumptable + '\n'] := print_line
+                m[r0][jumptable + ' '] := waiting
+                m[r0][jumptable + '+'] := add
+                m[r0][jumptable + '-'] := sub
+                m[r0][jumptable + '*'] := mul
+                m[r0][jumptable + '/'] := div
+                m[r0][jumptable + '|'] := bit_or
+                m[r0][jumptable + '&'] := bit_and
+                m[r0][jumptable + 'c'] := change_sign
+                m[r0][jumptable + '~'] := complement
+                m[r0][jumptable + 's'] := swap
+                m[r0][jumptable + 'd'] := dup
+                m[r0][jumptable + 'p'] := pop_val
+                m[r0][jumptable + 'z'] := clear
+
+                m[r0][jumptable + '2'] := 2
+
+temp_dig:
+        push r1 on stack r2
+        push r3 on stack r2
+
+        r1 := m[r0][r2 + 2]
+        r3 := m[r0][r2 + 3]
+        r5 := m[r0][r2 + 4]
+
+        r3 := r3 - '0'
+        push r3 on stack r1
+        if (r5 == 0) goto  
+
+
+
+main:          
+        output "In main \n"
+        goto waiting
+
+waiting:
+        output "In waiting \n"
+
+        r1 := input()
+        r5 := jumptable + r1
+        
+        goto r5
+        //if (r1 <=s 9) goto add using r5
+
+        //push r1 on stack r2  
+        //using r5
+
+        goto entering
+
+entering:
+        r1 := input()
+        
+        pop r5 off stack r2
+        
+        r6 := r5 * 10
+        r7 := r1 + r6
+
+        push r7 on stack r2
+
+        
+        goto entering
+
+add:      
+        output "TEMP"
+
+sub:
+        output "TEMP"
+
+mul:
+        output "TEMP"
+
+div:
+        output "TEMP"
+
+bit_or:
+        output "TEMP"
+
+bit_and:
+        output "TEMP"
+        
+change_sign:
+        output "TEMP"
+
+complement:
+        output "TEMP"
+
+swap:
+        output "TEMP"
+
+dup:
+        output "TEMP"
+
+pop_val:
+        output "TEMP"
+clear:
+        output "TEMP"
+
+
+input_error:
+        output "TEMP"

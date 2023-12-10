@@ -1,0 +1,18 @@
+// Allocates space (10000) for stack 
+// Sets r2 as stack pointer
+
+.section init
+        .zero r0
+        .temps r6, r7
+.section stk
+        .space 1000000
+        endstack:
+
+        .space 10000
+        val_stack:
+.section init 
+        start:
+                r0 := 0
+                r2 := endstack
+                goto main linking r1
+                halt
